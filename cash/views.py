@@ -10,16 +10,22 @@ def new_transaction(request):
     if request.method == "POST":
         latest_balance = 0
         try:
-            latest_transaction = Tansaction.objects.latest("date")
-            latest_balance = latest_transaction.running_balance
+            latest_transaction = Tansaction.objects.all().order_by("-id").first()
+            if latest_transaction:
+                latest_balance = latest_transaction.running_balance
+            print(latest_balance)
         except Tansaction.DoesNotExist:
             # No transactions exist, so the latest_balance remains 0
             pass
 
         if request.POST.get("transaction_type") == "Credit":
-            new_balance = latest_balance + int(request.POST.get("amount"))
+            new_balance = int(latest_balance) + int(request.POST.get("amount"))
+            print("inside credit")
+            print(new_balance)
         else:
-            new_balance = latest_balance - int(request.POST.get("amount"))
+            new_balance = int(latest_balance) - int(request.POST.get("amount"))
+            print("inside debit")
+            print(new_balance)
 
         new_transaction = Tansaction(
             date=datetime.date.today(),
