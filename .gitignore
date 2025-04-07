@@ -1,0 +1,9 @@
+# .gitignore for Django projects
+
+# Byte-compiled Python files
+*.pyc
+__pycache__/
+
+# Database files
+*.sqlite3
+*.db

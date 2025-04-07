@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cash/css/styles.css' %}">
+    <meta charset="UTF-8">
+    <title>New Transaction</title>
+</head>
+
+<body>
+    <h1>New Transaction</h1>
+    <form method="post" action="{% url 'new_transaction' %}">
+        {% csrf_token %}
+
+        <div>
+            <label for="transaction_type">Transaction Type</label>
+            <select id="transaction_type" name="transaction_type" required>
+                <option value="">Select Transaction Type</option>
+                <option value="Credit">Credit</option>
+                <option value="Debit">Debit</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" step="0.01" min="0" required>
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description">
+        </div>
+
+        <div>
+            <button type="submit">SAVE</button>
+            <a href="{% url 'office_transactions' %}" class="link-blue">
+                CANCEL
+            </a>
+        </div>
+    </form>
+</body>
+
+</html>
